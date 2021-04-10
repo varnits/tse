@@ -8,14 +8,18 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.*;
+
 public class Processor {
     ArrayList<String> resultSet;
+   
    public Processor(){
        this.resultSet=new ArrayList<String>();
    }
+    
     public void execute(ArrayList<Order> orderList){
-        HashMap<String,Stock> map=new HashMap<>();
       
+        HashMap<String,Stock> map=new HashMap<>();
+     // for(listel: )
        
        int n=orderList.size();
        int i=0;
@@ -32,7 +36,7 @@ public class Processor {
             
             PriorityQueue<Order> sellQ    =map.get(o.getStockName()).getSellQ();
             PriorityQueue<Order> buyQ   =map.get(o.getStockName()).getBuyQ();
-            
+            //make ordertype enum
             if( o.orderType.equals("buy")){
           //      System.out.println("stko ->"+" buy"+o.getStockName());
 
@@ -40,7 +44,7 @@ public class Processor {
                 
                     int left=executeTillCantBuy(sellQ,o);
                     if(left>0){
-                        o.quantity=left;
+                        o.setQuantity(left);
                         buyQ.add(o);
                     }
                 }
@@ -52,7 +56,7 @@ public class Processor {
 
                     int left=executeTillCantSell(buyQ,o);
                     if(left>0){
-                        o.quantity=left;
+                        o.setQuantity(left);
                         sellQ.add(o);
                     }
                 }

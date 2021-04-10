@@ -7,12 +7,7 @@ import java.util.*; // Import the Scanner class to read text files
 import java.io.InputStreamReader;
 
 public class App {
-    public void getGreeting(String s) {
-        
-        Controller controller=new Controller();
-        controller.process(s);
-        return ;
-    }
+   
 
     public static void main(String[] args) {
        
