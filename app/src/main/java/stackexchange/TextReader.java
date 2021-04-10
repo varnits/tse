@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.*;
 public class CLIReader {
-    
+    //invalid Input exception
     public ArrayList <Order> read(String input){
    
         ArrayList<String >list=new ArrayList<>();
@@ -29,6 +29,7 @@ public class CLIReader {
           myReader.close();
         } catch (FileNotFoundException e) {
           System.out.println("An error occurred.");
+        //create new exception invalid input
           e.printStackTrace();
         }
         return orderList;
@@ -36,16 +37,19 @@ public class CLIReader {
     public Order createOrder(String orderString){
    
         String s[]=orderString.split(" ");
-
+// create list instead of array
+//invalid input file exception
             String arr[]=new String [6];
             int i=0;
             int j=0;
             while(i<s.length && j<6){
+                
                 if(!s[i].isEmpty())
                     arr[j++]=s[i];
                 i++;    
             }
           
+
         Order order =new Order(arr[0],arr[1], arr[2], arr[3], arr[4], arr[5]);
   //      System.out.println("Id->"+order.getId());
         return order;

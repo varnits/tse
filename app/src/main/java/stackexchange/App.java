@@ -10,8 +10,8 @@ public class App {
    
 
     public static void main(String[] args) {
-       
-        if(args.length>0){
+       //else invalid input exception
+        if(args.length==1){
             Controller controller=new Controller();
             controller.process(args[0]);
         }

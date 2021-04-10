@@ -75,12 +75,14 @@ public class Processor {
               Order sellQOrder=sellQ.peek();
                 if(sellQOrder.getPrice()>o.getPrice())
                     return left;
+              
                 if(sellQOrder.getPrice()<=o.getPrice() && sellQOrder.getQuantity()>o.getQuantity()){
                     
                     left=0;
                     Order q=sellQ.poll();
 
                     System.out.println("1");
+                    // Create Transaction
                     resultSet.add( o.getId()+" "+String.format("%.02f", q.getPrice())+" "+o.getQuantity()+" "+q.getId() );
 
 
@@ -99,6 +101,7 @@ public class Processor {
                     o.setQuantity(left);                          
                        
                 }
+                //
                 else if(sellQOrder.getPrice()<=o.getPrice() ){
                   
                     Order q=sellQ.poll();
