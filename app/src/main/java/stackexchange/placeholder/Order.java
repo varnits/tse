@@ -18,6 +18,8 @@ public  Order(String id, String time, String stockName, String orderType,  Strin
 
 
 }
+
+
 public String getId(){
     return this.id;
 }
@@ -28,6 +30,7 @@ public String getStockName(){
     return this.stockName;
 }
 public String getOrderType(){
+    
     return this.orderType;
 }
 public float getPrice(){
@@ -69,7 +72,7 @@ public static  Comparator<Order> ListComparator = new Comparator<Order>() {
     }
 };
 
-public static  Comparator<Order> OrderComparator = new Comparator<Order>() {
+public static  Comparator<Order> MinComparator = new Comparator<Order>() {
 
 	public int compare(Order order1, Order order2) {
        //
@@ -85,20 +88,7 @@ public static  Comparator<Order> OrderComparator = new Comparator<Order>() {
         return 1;
 
         return order1.time.compareTo(order2.time);
-
-        
-        // Integer i=Integer.parseInt(order1.time.replace(":", ""));
-        // Integer j=Integer.parseInt(order2.time.replace(":", ""));
-        // if(i<j)
-        //     return -1;
-        //  else
-        //         return 1;
-               
-               
-              
-
-        
-       
+    
         
 	   //descending order
 	   //return StudentName2.compareTo(StudentName1);
@@ -119,18 +109,7 @@ public static  Comparator<Order> MaxComparator = new Comparator<Order>() {
         else if((price1<price2))
         return 1;
         return order1.time.compareTo(order2.time);
-        // Integer i=Integer.parseInt(order1.time.replace(":", ""));
-        // Integer j=Integer.parseInt(order2.time.replace(":", ""));
-        // if(i<j)
-        //     return -1;
-        //  else
-        //         return 1;
-               
-               
-              
-
-        
-       
+      
         
 	   //descending order
 	   //return StudentName2.compareTo(StudentName1);

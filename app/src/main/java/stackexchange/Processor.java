@@ -10,10 +10,12 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.*;
 
 public class Processor {
-    ArrayList<String> resultSet;
+    
+    ArrayList<Transaction> transactionSet;
    
    public Processor(){
-       this.resultSet=new ArrayList<String>();
+       this.transactionSet= new ArrayList<Transaction> ();
+   
    }
     
     public void execute(ArrayList<Order> orderList){
@@ -21,12 +23,8 @@ public class Processor {
         HashMap<String,Stock> map=new HashMap<>();
      // for(listel: )
        
-       int n=orderList.size();
-       int i=0;
-        while(i<n){
-            
-            Order o=orderList.get(i);
-            
+       for (Order o : orderList) { 		      
+            	            
             if(!map.containsKey(o.getStockName())){
              
                 Stock stock=new Stock(o.getStockName());
@@ -38,7 +36,6 @@ public class Processor {
             PriorityQueue<Order> buyQ   =map.get(o.getStockName()).getBuyQ();
             //make ordertype enum
             if( o.orderType.equals("buy")){
-          //      System.out.println("stko ->"+" buy"+o.getStockName());
 
                 if(map.containsKey(o.getStockName())){
                 
@@ -50,7 +47,6 @@ public class Processor {
                 }
             }
             if( o.orderType.equals("sell")){
-   //             System.out.println("stko -> "+" sold"+o.getStockName());
 
                 if(map.containsKey(o.getStockName())){
 
@@ -61,7 +57,6 @@ public class Processor {
                     }
                 }
             }
-        i++;
         }
 
 
@@ -81,37 +76,25 @@ public class Processor {
                     left=0;
                     Order q=sellQ.poll();
 
-                    System.out.println("1");
+                  
                     // Create Transaction
-                    resultSet.add( o.getId()+" "+String.format("%.02f", q.getPrice())+" "+o.getQuantity()+" "+q.getId() );
-
+                    transactionSet.add(new Transaction(o.getId(),q.getPrice(), o.getQuantity(), q.getId()));
 
                     q.setQuantity(q.getQuantity()-o.getQuantity());
                     sellQ.add(q);
   
                 }
-                else if(sellQOrder.getPrice()<=o.getPrice() && sellQOrder.getQuantity()<o.getQuantity()){
+                else if(sellQOrder.getPrice()<=o.getPrice() && sellQOrder.getQuantity()<=o.getQuantity()){
                     Order q=sellQ.poll();
                     
                     left=o.getQuantity()-q.getQuantity();
 
-                    System.out.println("2");
-                    resultSet.add( o.getId()+" "+String.format("%.02f", q.getPrice())+" "+q.getQuantity()+" "+q.getId() );
-
+                    transactionSet.add(new Transaction(o.getId(),q.getPrice(), o.getQuantity(), q.getId()));
+                   
                     o.setQuantity(left);                          
                        
                 }
-                //
-                else if(sellQOrder.getPrice()<=o.getPrice() ){
-                  
-                    Order q=sellQ.poll();
-
-                    System.out.println("3");
-                    resultSet.add( o.getId()+" "+String.format("%.02f", q.getPrice())+" "+q.getQuantity()+" "+q.getId() );
-
-                    return 0;
-
-                }
+               
 
             }
       
@@ -128,44 +111,33 @@ public class Processor {
                 return left;
             if(buyQOrder.getPrice()>=o.getPrice() && buyQOrder.getQuantity()>o.getQuantity()){
                 left=0;
+               
                 Order q=buyQ.poll();
 
-                System.out.println("4");
-                resultSet.add( q.getId()+" "+String.format("%.02f", o.getPrice())+" " +o.getQuantity()+" "+o.getId() );
+                transactionSet.add(new Transaction(q.getId(),o.getPrice(), o.getQuantity(), o.getId()));
 
                 q.setQuantity(q.getQuantity()-o.getQuantity());
                 buyQ.add(q);
                     
             }
-            else if(buyQOrder.getPrice()>=o.getPrice() && buyQOrder.getQuantity()<o.getQuantity()){
+            else if(buyQOrder.getPrice()>=o.getPrice() && buyQOrder.getQuantity()<=o.getQuantity()){
              
                 Order q=buyQ.poll();
                 left=o.getQuantity()-q.getQuantity();
                 
-                System.out.println("5");
-                resultSet.add( q.getId()+" "+String.format("%.02f", o.getPrice())+" " +q.getQuantity()+" "+o.getId() );
+                transactionSet.add(new Transaction(q.getId(),o.getPrice(), q.getQuantity(), o.getId()));
+
                 
                 o.setQuantity(left);    
                   
             }
-            else if(buyQOrder.getPrice()>=o.getPrice()){
-
-                Order q=buyQ.poll();
-
-                System.out.println("6");
-
-                resultSet.add( q.getId()+" "+String.format("%.02f", o.getPrice())+" " +o.getQuantity()+" "+o.getId() );
-
-                return 0;
-
-            }
-
+          
         }
   
     return left;
   }
-  public ArrayList<String>  getResultSet(){
-    return this.resultSet;
+  
+public ArrayList<Transaction>  getTranasactionSet(){
+    return this.transactionSet;
 }
-    
 }    

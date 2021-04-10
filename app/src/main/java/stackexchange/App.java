@@ -5,15 +5,20 @@ package stackexchange;
 import stackexchange.Controller;
 import java.util.*; // Import the Scanner class to read text files
 import java.io.InputStreamReader;
+import stackexchange.InputRuntimeException;
 
 public class App {
    
 
     public static void main(String[] args) {
-       //else invalid input exception
+       
         if(args.length==1){
             Controller controller=new Controller();
             controller.process(args[0]);
         }
+        else{
+            throw new InputRuntimeException();
+        }
+
     }
 }

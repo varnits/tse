@@ -11,7 +11,7 @@ public  Stock(String stockName ){
            
             this.stockName=stockName;
             this.buyQ=new PriorityQueue<>(Order.MaxComparator);
-            this.sellQ=new PriorityQueue<>(Order.OrderComparator);
+            this.sellQ=new PriorityQueue<>(Order.MinComparator);
 
 }
 public PriorityQueue<Order>  getBuyQ(){
